@@ -26,12 +26,12 @@ class Phone(Field):
 
         
 class Record:
-    def __init__(self, name, phone):    
-            self.name = Name(name)
+    def __init__(self, name: Name, phone: Phone = None) -> None:  
+            self.name = name
             if phone is None:
                 self.phone = []
             else:
-                self.phone = [Phone(ph).value for ph in phone]
+                self.phone = phone
 
     def add_phone(self, book):
         book[self.name.value].phone.extend(self.phone)
@@ -123,8 +123,8 @@ def main():
         parse_input = parse_user_input(user_input)
         try:
             command = parse_input[0]
-            name = parse_input[1]
-            phones = parse_input[2:]
+            name = Name(parse_input[1])
+            phones = [Phone(ph).value for ph in  parse_input[2:]]
             rec = Record(name, phones) 
             func = { 
                 "add" : add_contact,
