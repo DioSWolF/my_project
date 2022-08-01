@@ -1,4 +1,3 @@
-from distutils.filelist import findall
 import re
 
 phone_list = {}
@@ -16,7 +15,7 @@ def input_error(func):
             print("This phone number invalid")
             return None
         except IndexError:
-            print("Write name and phone")
+            print("Write name and one phone")
             return None
     return inner
 
@@ -43,6 +42,8 @@ def valid_username(username):
 
 @input_error
 def add_phone(info_phone):
+    if len(info_phone) > 3:
+        raise IndexError
     global phone_list
     valid_username(info_phone)
     username = info_phone[1]
@@ -53,6 +54,8 @@ def add_phone(info_phone):
 
 @input_error
 def change_phone(info_phone):
+    if len(info_phone) > 3:
+        raise IndexError
     global phone_list
     valid_username(info_phone)
     username = info_phone[1]
@@ -63,6 +66,8 @@ def change_phone(info_phone):
 
 @input_error
 def phone_show(info_phone):
+    if len(info_phone) > 2:
+        raise KeyError
     username = info_phone[1]
     phone = phone_list[username]
     return "".join(f"{username}: {phone}")
@@ -87,13 +92,12 @@ func = {
 
 @input_error
 def parse_user_imput(user_command):
-    user_command = user_command.lower()
     command = user_command.split(" ")
-    if command[0] == "show" and command[1] == "all":
+    if command[0].lower() == "show" and command[1].lower() == "all":
         func_key = func.get("show all")
         user_command_parse = func_key(command)
         return user_command_parse
-    func_key = func.get(command[0], close)
+    func_key = func.get(command[0].lower(), close)
     user_command_parse = func_key(command)
     return user_command_parse
 
@@ -111,21 +115,4 @@ def main():
             print(func_user)
     print("Good bye!")
 main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
