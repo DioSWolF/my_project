@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 import sys
 
-path = "F:/Users/Dios Wolf/Desktop/123копия - копия"
+path = None
 if path is None:
     for arg in sys.argv[1:]:
         path = arg
@@ -158,9 +158,9 @@ def start_scan(path=None):                              # Функция зап�
     path = Path(path)
     new_folders_create(path)
     scan_folder(path)
-    print_name_def(path)\
+    print_name_def(path)
 
-start_scan("F:/Users/Dios Wolf/Desktop/123копия - копия")                                   # Запуск сортировки
+start_scan(path=None)                                   # Запуск сортировки
 
  
 
